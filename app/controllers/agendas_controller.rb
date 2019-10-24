@@ -22,8 +22,10 @@ class AgendasController < ApplicationController
   end
 
   def destroy
+    emails = @agenda.team.email
     @agenda.destroy
     redirect_to dashboard_url, notice: 'アジェンダ削除に成功しました！'
+    DeleteAgendaMailer.delete_agenda_mail(emails, @agenda.name).deliver
   end
 
   private
