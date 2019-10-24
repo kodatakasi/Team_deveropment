@@ -22,10 +22,13 @@ class AgendasController < ApplicationController
   end
 
   def destroy
-    emails = @agenda.team.email
+    users = User.where(keep_team_id: @agenda.team.id)
+    # binding.pry
+    users.each do |user|
+      DeleteAgendaMailer.delete_agenda_mail(user.email, @agenda).deliver
+    end
     @agenda.destroy
     redirect_to dashboard_url, notice: 'アジェンダ削除に成功しました！'
-    DeleteAgendaMailer.delete_agenda_mail(emails, @agenda.name).deliver
   end
 
   private
