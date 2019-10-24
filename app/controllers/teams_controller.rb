@@ -49,7 +49,8 @@ class TeamsController < ApplicationController
 
   def change
     team = Team.find(current_user.keep_team_id)
-    team.update(owner_id: change_owner_id)
+    team.update(owner_id: params[:id])
+    redirect_to team, notice: 'オーナーの権限移動に成功しました！'
   end
 
   private
