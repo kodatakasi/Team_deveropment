@@ -43,7 +43,7 @@
                       <td><%= assign.user.email %></td>
                       <td><%= link_to '削除', team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %></td>
                       <% if current_user.id == @team.owner_id %>
-                        <td><%= link_to '権限移動', change_team_path(assign), action: 'change', method: 'post', change_id: assign.user_id, class: 'btn btn-sm btn-info' %></td>
+                        <td><%= link_to '権限移動', change_team_path(assign.user_id), action: 'change', method: 'post', id: assign.user_id, class: 'btn btn-sm btn-info' %></td>
                       <% else %>
                         <td></td>
                       <% end %>

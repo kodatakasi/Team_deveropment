@@ -48,8 +48,10 @@ class TeamsController < ApplicationController
   end
 
   def change
+    # binding.pry
     team = Team.find(current_user.keep_team_id)
     team.update(owner_id: params[:id])
+    ChangeOwnerMailer.change_owner_mail(team.owner.email, team.name).deliver
     redirect_to team, notice: 'オーナーの権限移動に成功しました！'
   end
 
