@@ -22,8 +22,7 @@ class AgendasController < ApplicationController
   end
 
   def destroy
-    users = User.where(keep_team_id: @agenda.team.id)
-    # binding.pry
+    users = @agenda.team.members
     users.each do |user|
       DeleteAgendaMailer.delete_agenda_mail(user.email, @agenda).deliver
     end
